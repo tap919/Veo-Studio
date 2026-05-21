@@ -1,0 +1,6 @@
+{
+  "name": "Veo Rap Video Studio",
+  "description": "An interactive studio to create, edit, and render high-quality hip-hop music videos from portrait photos and tracks, powered by Veo generative video prompt pipelines and synthetic hip-hop beats.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
