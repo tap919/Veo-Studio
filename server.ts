@@ -123,7 +123,7 @@ app.post("/api/analyze-and-write-rap", async (req, res) => {
     contents.push({ text: textPrompt });
 
     const response = await generateContentWithFallback(
-      ["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-flash-latest"],
+      ["gemini-2.5-flash", "gemini-2.0-flash-lite", "gemini-2.0-flash"],
       {
         contents,
         config: {
@@ -246,7 +246,7 @@ app.post("/api/generate-keyframe", async (req, res) => {
 
   try {
     const response = await generateContentWithFallback(
-      ["gemini-2.5-flash-image", "gemini-3.1-flash-image-preview"],
+      ["gemini-2.0-flash-preview-image-generation", "gemini-2.5-flash-preview-05-20"],
       {
         contents: {
           parts: [{ text: prompt }]
