@@ -38,10 +38,27 @@ function getGeminiClient(): GoogleGenAI {
   return _aiClient;
 }
 
+interface TextGenerationParams {
+  contents: object | object[];
+  config: {
+    responseMimeType: string;
+    responseSchema: object;
+  };
+}
+
+interface ImageGenerationParams {
+  contents: object;
+  config: {
+    imageConfig: { aspectRatio: string };
+  };
+}
+
+type GenerationParams = TextGenerationParams | ImageGenerationParams;
+
 // Highly resilient content generation helper with automatic model fallbacks for high-availability
 async function generateContentWithFallback(
   models: string[],
-  params: any
+  params: GenerationParams
 ): Promise<any> {
   let lastError: any = null;
   for (const model of models) {
@@ -323,7 +340,10 @@ app.post("/api/generate-video", async (req, res) => {
 
 // Helper to get authorization header for D-ID
 function getDIDAuthHeader(): string {
-  const dIdApiKey = process.env.D_ID_API_KEY || "dGFwNDUwMEBnbWFpbC5jb20:5rHG5laz0uQZt5wbIKmAA";
+  const dIdApiKey = process.env.D_ID_API_KEY;
+  if (!dIdApiKey) {
+    throw new Error("D_ID_API_KEY is not defined in environment secrets.");
+  }
   if (dIdApiKey.startsWith("Basic ")) {
     return dIdApiKey;
   }
